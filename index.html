@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مفاجأة ليكي</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap');
+body{font-family:'Cairo',tahoma; background:linear-gradient(135deg,#ffdde1,#ee9ca7); height:100vh; margin:0; display:flex; justify-content:center; align-items:center; overflow:hidden;}
+.card{background:white; width:90%; max-width:380px; padding:35px 25px; border-radius:25px; box-shadow:0 20px 40px rgba(0,0,0,.15); text-align:center; transition:.5s;}
+.gift{font-size:80px; cursor:pointer; animation:beat 1.2s infinite;}
+@keyframes beat{0%,100%{transform:scale(1)} 50%{transform:scale(1.15)}}
+h2{color:#ff4d8d; margin:10px 0;}
+input{width:80%; padding:13px; border-radius:12px; border:2px solid #ffc2d1; text-align:center; font-size:16px; outline:none; margin-top:15px;}
+button{background:#ff4d8d; color:white; border:none; padding:12px 30px; border-radius:12px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:15px; width:85%;}
+#step2,#step3{display:none;}
+#message{font-size:18px; line-height:2; color:#333; background:#fff0f5; padding:20px; border-radius:15px; margin-top:15px;}
+.confetti{position:fixed; width:10px; height:10px; top:-10px; animation:fall 3s linear forwards;}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);}}
+</style>
+</head>
+<body>
+
+<div class="card" id="step1">
+  <div class="gift" onclick="go2()">🎁</div>
+  <h2>عندك مفاجأة!</h2>
+  <p>دوسي على الهدية عشان تفتحيها</p>
+</div>
+
+<div class="card" id="step2">
+  <div style="font-size:50px;">🔐</div>
+  <h2>مقفولة بباسورد</h2>
+  <p>الباسورد تلميح: اسم قمر 😉</p>
+  <input type="password" id="pass" placeholder="اكتبي الباسورد">
+  <button onclick="check()">افتحيها بقى</button>
+  <p id="err" style="color:red; display:none; margin-top:10px;">لا لا حاولي تاني 😜</p>
+</div>
+
+<div class="card" id="step3">
+  <div style="font-size:50px;">💌</div>
+  <div id="message">
+    شكرا جدا ع الشرح تعبتك معايا جدا<br>
+    اي حكاية الموف اون دي 🙂😂<br>
+    هحكيلك ع موقف حصل
+  </div>
+  <p style="margin-top:15px; color:#ff4d8d;">- من حد بيقدرك جدا</p>
+</div>
+
+<script>
+function go2(){
+  document.getElementById('step1').style.display='none';
+  document.getElementById('step2').style.display='block';
+}
+function check(){
+  let p=document.getElementById('pass').value.trim();
+  if(p==='أميرة' || p==='اميرة' || p==='amira' || p==='Amira' || p==='AMIRA'){
+    document.getElementById('step2').style.display='none';
+    document.getElementById('step3').style.display='block';
+    launchConfetti();
+  }else{
+    document.getElementById('err').style.display='block';
+  }
+}
+function launchConfetti(){
+  for(let i=0;i<60;i++){
+    let c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    c.style.animationDelay=Math.random()*.5+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+</script>
+</body>
+</html>
